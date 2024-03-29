@@ -43,3 +43,30 @@ where rn = 2;
 select * from (select *, dense_rank() over ( partition by department order by salary desc) rn
 from employees2) b
 where rn =2;
+-- select * from table_name order by column desc limit n-1,1; For 3rd highest use n=3
+select * from employees2
+order by salary desc
+limit 1,1;
+--
+select min(salary)
+from ( select * from employees2
+order by salary desc 
+limit 2) a;
+--
+select * from (select * from employees2
+order by salary desc 
+limit 2) a
+order by salary 
+limit 1;
+--
+select max(salary) from employees2
+where salary not in( select max(salary) from employees2);
+--
+select e1.salary from employees2 e1
+join employees2 e2
+on e1.salary < e2.salary
+group by e1.salary
+order by e1.salary desc
+limit 1;
+--
+
