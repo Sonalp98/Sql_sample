@@ -53,4 +53,11 @@ join cte c
 on c.category = o.category
 group by o.category, o.product) subquery2 
 where rn =1;
+-- If you have duplicate products in the same category first of all you need to aggregate the values
+select category, product, sum(spend) as sum_spend ,dense_rank() over(partition by category order by sum(spend) ) as rn
+from orders1
+group by category,product; 
+-- Chcek this
+select category,product,dense_rank() over(partition by category order by spend ) as rn
+from orders1;
 
