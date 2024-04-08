@@ -77,3 +77,8 @@ select name , coalesce(unique_id,0) as unique_id
 from employees e
 left join employeeUNI e1
 on e.id= e1.id;
+-- Using ifnull()
+select name , ifnull(unique_id,0) as unique_id
+from employees e
+left join employeeUNI e1
+on e.id= e1.id;
