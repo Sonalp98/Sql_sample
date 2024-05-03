@@ -45,10 +45,19 @@ You have a students table with columns
 id, name, marks and class of students
 
 -- Write a query to fetch students
-with minmum marks and maximum marks 
+-- with minmum marks and maximum marks */
 
+select * from students
+where marks=(select min(marks) from students)
+or marks=(select max(marks) from students);
+with cte as(select min(marks)as min,max(marks) as max from students)
+select student_id,student_name,marks,class
+from students s
+join cte on s.marks= min or s.marks=max
 
-*/
+-- Your Task
+-- Write a SQL query to return students with maximum marks in each class
+    
 with cte as(select class, max(marks) as max,min(marks) as min from students
 group by class)
 select cte.class,max,min,
